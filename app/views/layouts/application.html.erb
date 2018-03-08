@@ -20,10 +20,10 @@
         <input type="submit" value="logout" />
       </form>
     <% else %>
-      <form action="<%= sessions_url %>" method="post">
+      <form action="<%= new_sessions_url %>" method="get">
         <input type="hidden" name="authenticity_token"
           value="<%= form_authenticity_token %>">
-        
+
         <input type="submit" value="login" />
       </form>
     <% end %>

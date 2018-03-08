@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       params[:user][:password],
     )
 
-    if @user.save
+    if @user
       login!(@user)
       flash[:success] = "Successfully Logged In!!!!!!!"
       redirect_to cats_url

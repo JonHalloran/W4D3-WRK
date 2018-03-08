@@ -27,4 +27,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def owns_cat?(cat)
+    cats_array = current_user.cats.where("cats.id = #{cat.id}")
+
+    if cats_array.empty?
+      return false
+    end
+    true
+  end
+
 end

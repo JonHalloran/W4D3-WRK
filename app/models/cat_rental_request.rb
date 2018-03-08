@@ -2,13 +2,14 @@
 #
 # Table name: cat_rental_requests
 #
-#  id         :integer          not null, primary key
-#  cat_id     :integer          not null
-#  end_date   :date             not null
-#  start_date :date             not null
-#  status     :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  cat_id       :integer          not null
+#  end_date     :date             not null
+#  start_date   :date             not null
+#  status       :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  requester_id :integer
 #
 
 class CatRentalRequest < ApplicationRecord
@@ -22,7 +23,13 @@ class CatRentalRequest < ApplicationRecord
   validate :start_must_come_before_end
   validate :does_not_overlap_approved_request
 
-  belongs_to :cat
+  belongs_to :cat,
+    class_name: :Cat,
+    foreign_key: :cat_id
+
+  belongs_to :requester,
+    class_name: :User,
+    foreign_key: :requester_id
 
   after_initialize :assign_pending_status
 
@@ -162,4 +169,6 @@ class CatRentalRequest < ApplicationRecord
     errors[:start_date] << 'must come before end date'
     errors[:end_date] << 'must come after start date'
   end
+
+
 end
